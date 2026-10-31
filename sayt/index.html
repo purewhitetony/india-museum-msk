@@ -16,13 +16,23 @@ body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--f-b)}
 a{color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .draft{background:var(--saffron);color:#fff;font-size:13px;text-align:center;padding:6px 16px}
-/* hero */
-.hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;color:#f6efe2;background:#14120f url('../assets/img/fasad.webp') center 35%/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,13,11,.82) 0%,rgba(15,13,11,.45) 45%,rgba(15,13,11,0) 75%),linear-gradient(180deg,rgba(15,13,11,.1) 0%,rgba(15,13,11,.3) 50%,rgba(15,13,11,.9) 100%)}
-.hero .wrap{position:relative;padding-block:56px 64px;width:100%}
-.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-l);font-weight:600}
-.hero h1{font:600 clamp(42px,7vw,84px)/.98 var(--f-d);margin:10px 0 16px;letter-spacing:-.005em;max-width:14ch;text-wrap:balance}
-.hero p{max-width:56ch;margin:0 0 26px;font-size:18.5px;color:#e6dccb}
+/* главный экран: видео фасада (пока кадр-заглушка), логотип, меню, «Войти» */
+.hero{position:relative;height:calc(100svh - 82px);min-height:520px;max-height:1100px;overflow:hidden;color:#f6efe2;background:#14120f}
+.hero-media,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% 45%}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(12,10,8,.72) 0%,rgba(12,10,8,.32) 30%,rgba(12,10,8,0) 55%),linear-gradient(180deg,rgba(12,10,8,.55) 0%,rgba(12,10,8,0) 22%,rgba(12,10,8,0) 68%,rgba(12,10,8,.6) 100%)}
+.hero-top{position:absolute;z-index:2;top:0;left:0;right:0;display:flex;align-items:center;gap:18px;padding:18px max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px))}
+.logo{display:flex;align-items:center;gap:10px;font:600 25px/1 var(--f-d);letter-spacing:.02em;text-decoration:none;color:#f6efe2}
+.logo svg{width:32px;height:17px;color:var(--brass-l)}
+.menu{display:flex;gap:24px;margin-left:auto;font-size:14px;letter-spacing:.05em}
+.menu a{text-decoration:none;opacity:.86}
+.menu a:hover{opacity:1;color:var(--brass-l)}
+.hero-bottom{position:absolute;z-index:2;left:max(20px,env(safe-area-inset-left,0px));bottom:clamp(28px,7vh,72px);max-width:min(430px,40%)}
+.hero-bottom p{margin:0 0 22px;font-size:16.5px;color:#e9dfce;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.enter{display:inline-flex;align-items:center;gap:12px;padding:15px 34px;border:0;border-radius:999px;background:var(--brass-l);color:#1b1916;font:600 15px var(--f-b);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;animation:glow 3s ease-in-out infinite}
+.enter:focus-visible,.menu a:focus-visible,.logo:focus-visible{outline:2px solid var(--brass-l);outline-offset:3px}
+@keyframes glow{50%{box-shadow:0 0 0 10px rgba(216,180,106,0),0 0 34px rgba(216,180,106,.55)}}
+@media (max-width:760px){.menu{display:none}.hero-bottom{max-width:none;right:max(20px,env(safe-area-inset-right,0px))}.hero-media,.hero-video{object-position:64% 50%}}
+@media (prefers-reduced-motion:reduce){.enter{animation:none!important}}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer}
 .btn.gold{background:var(--brass-l);color:#1b1916}
@@ -66,17 +76,25 @@ footer b{color:#f3ece0;font:600 22px var(--f-d)}
 @media (max-width:820px){.tour{grid-template-columns:1fr}}
 </style></head><body>
 <nav class="hub" aria-label="Режимы просмотра">
-<a class="hub-brand" href="../index.html">Музей Индии <span>рабочая площадка</span></a>
-<div class="hub-modes"><a href="../razmetka/index.html">Разметка и референсы</a><a href="index.html" aria-current="page">Сайт · черновик</a></div>
+<a class="hub-brand" href="../rabota/index.html">Музей Индии <span>рабочая площадка</span></a>
+<div class="hub-modes"><a href="../index.html">Лендинг</a><a href="../razmetka/index.html">Разметка и референсы</a><a href="index.html" aria-current="page">Сайт · черновик</a></div>
 </nav>
 <div class="draft">Черновик: тексты, картинки и форма временные. Виртуальная экскурсия появится после пилотной панорамы.</div>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Музей Индии · Москва, Садовое кольцо</div>
-    <h1>Индия — в&nbsp;сердце Москвы</h1>
-    <p>Постоянный музей и культурный центр, где Индию можно увидеть, услышать и попробовать: экспозиции, лекторий, музыка и танец, книги, алтарная комната и чайная восточных сладостей.</p>
-    <div class="btns"><a class="btn gold" href="#tur">Виртуальная экскурсия</a><a class="btn line" href="#uchastie">Поддержать проект</a></div>
+<header class="hero" id="glavnaya">
+  <picture>
+    <source type="image/webp" srcset="../assets/img/hero-1280.webp 1280w, ../assets/img/hero-1920.webp 1920w" sizes="100vw">
+    <img class="hero-media" src="../assets/img/hero-1920.jpg" srcset="../assets/img/hero-1280.jpg 1280w, ../assets/img/hero-1920.jpg 1920w" sizes="100vw" alt="Вечерний фасад Музея Индии на углу Садового кольца" fetchpriority="high">
+  </picture>
+  <!-- Петля фасада: появится, когда будет файл; до тех пор и при ошибке загрузки виден кадр-заглушка -->
+  <video class="hero-video" id="hero-video" data-base="../assets/video/hero-loop" muted playsinline loop preload="auto" hidden></video>
+  <div class="hero-top">
+    <a class="logo" href="#glavnaya"><svg viewBox="0 0 44 22" aria-hidden="true"><path d="M22 2c3 4 4 8 0 18C18 10 19 6 22 2Zm0 18C16 13 9 11 3 12c4 5 11 8 19 8Zm0 0c6-7 13-9 19-8-4 5-11 8-19 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Музей Индии</a>
+    <nav class="menu" aria-label="Разделы"><a href="#ideya">О музее</a><a href="#prostranstvo">Пространство</a><a href="#tur">Экскурсия</a><a href="#uchastie">Участие</a></nav>
+  </div>
+  <div class="hero-bottom">
+    <p>Постоянный музей и культурный центр в сердце Москвы: экспозиции, лекторий, музыка и танец, книги и чайная восточных сладостей.</p>
+    <button class="enter" id="enter" type="button">Войти</button>
   </div>
 </header>
 
@@ -157,6 +175,21 @@ else{box.innerHTML="";
       p.style.backgroundImage=`url("../assets/referensy/${z.id}.jpg")`;p.style.backgroundPosition=QP[0];
       c.append(p,el("b",null,z.name),el("span",null,z.desc));g.appendChild(c)});
     box.appendChild(g)})}
+/* главный экран: петля-видео поверх кадра-заглушки */
+const hv=document.getElementById("hero-video");
+if(hv.dataset.base&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  // WebM (VP9) — основной и самый лёгкий; MP4 (H.264) — запасной для браузеров без VP9 (старые Safari)
+  const q=innerWidth*devicePixelRatio<1500?"720":"1080";
+  for(const [ext,type] of [["webm",'video/webm; codecs="vp9"'],["mp4",'video/mp4; codecs="avc1.640028"']]){
+    const s=document.createElement("source");s.src=`${hv.dataset.base}-${q}.${ext}`;s.type=type;hv.appendChild(s);
+  }
+  hv.addEventListener("canplay",()=>{hv.hidden=false;hv.play().catch(()=>{hv.hidden=true})},{once:true});
+  // ошибка последнего источника = видео не загрузилось совсем: остаётся постер
+  hv.lastElementChild.addEventListener("error",()=>{hv.hidden=true});
+  hv.load();
+}
+/* «Войти»: пока переход-видео не готов — плавный переход к разделу «О музее» */
+document.getElementById("enter").addEventListener("click",()=>{document.getElementById("ideya").scrollIntoView({behavior:"smooth"})});
 document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();document.getElementById("f-note").textContent="Спасибо! В рабочей версии заявка уйдёт команде — сейчас это черновик, данные никуда не отправлены."});
 </script>
 </body></html>

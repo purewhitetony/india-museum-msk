@@ -1,91 +1,327 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Музей Индии · рабочая площадка</title>
-<meta name="description" content="Ход работы над сайтом-презентацией и виртуальной экскурсией Музея Индии в Москве.">
+<title>Музей Индии в Москве</title>
+<meta name="description" content="Музей Индии в Москве — культурно-просветительский центр. Приглашаем меценатов, партнёров и команду.">
+<meta property="og:title" content="Музей Индии в Москве">
+<meta property="og:description" content="Культурно-просветительский центр: культура, история, философия и духовные традиции Индии. Приглашаем меценатов и команду.">
+<meta property="og:image" content="assets/img/hero-1280.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/hub.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: одна колонка — вступление, два режима карточками, журнал работы и план следующих шагов */
-:root{--bg:#f4efe6;--card:#fffdf8;--ink:#26221d;--mute:#776c5f;--line:#e2d8c7;--brass:#9a7428;
+/* Layout: вечерний фасад на весь экран — дальше светлые «залы» одной колонкой; гранит, латунь и слоновая кость из фасада */
+:root{--granite:#1b1916;--ivory:#f3ece0;--paper:#faf6ee;--ink:#25211c;--mute:#6f6558;--line:#e3d8c6;--brass:#9c7a2c;--brass-l:#d8b46a;--saffron:#c96421;
   --f-d:"Cormorant Garamond",Georgia,serif;--f-b:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#191714;--card:#221f1b;--ink:#eee6d9;--mute:#a69a8a;--line:#38312a;--brass:#d2a64e;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--paper:#1d1a17;--ivory:#26221e;--ink:#efe7da;--mute:#a99d8d;--line:#3b342c;--brass:#d2a64e;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-b)}
-main{max-width:1080px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
-h1{font:600 clamp(36px,6vw,60px)/1.02 var(--f-d);margin:0 0 12px;text-wrap:balance}
-h2{font:600 30px/1.1 var(--f-d);margin:0 0 14px}
-.lead{max-width:62ch;color:var(--mute);margin:0;font-size:17px}
-.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.mode{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;color:inherit;text-decoration:none;transition:transform .2s,border-color .2s}
-.mode:hover{transform:translateY(-2px);border-color:var(--brass)}
-.mode:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
-.mode .pic{aspect-ratio:16/9;background-size:cover;background-position:center}
-.mode .pic.q{background-size:200% 200%}
-.mode .txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
-.mode b{font:600 22px/1.15 var(--f-d)}
-.mode span{color:var(--mute);font-size:14.5px}
-.mode em{font-style:normal;color:var(--brass);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
-.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.log>li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-.log ul li+li{margin-top:4px}
-.log time{font-variant-numeric:tabular-nums;color:var(--brass);font-weight:600;font-size:14px}
-.log ul{margin:0;padding-left:18px}
-.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;counter-reset:n;list-style:none;padding:0;margin:0}
-.next li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:15px}
-.next li::before{counter-increment:n;content:"Шаг " counter(n);display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:4px}
-footer{color:var(--mute);font-size:13.5px}
-@media (max-width:560px){.log>li{grid-template-columns:1fr;gap:4px}}
-@media (prefers-reduced-motion:reduce){.mode{transition:none}}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--f-b)}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--brass-l);outline-offset:3px}
+/* главный экран */
+.hero{position:relative;height:100svh;min-height:560px;max-height:1100px;overflow:hidden;color:#f6efe2;background:#14120f}
+.hero-media,.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% 45%}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(12,10,8,.74) 0%,rgba(12,10,8,.34) 32%,rgba(12,10,8,0) 56%),linear-gradient(180deg,rgba(12,10,8,.55) 0%,rgba(12,10,8,0) 22%,rgba(12,10,8,0) 66%,rgba(12,10,8,.62) 100%)}
+.top{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;align-items:center;gap:18px;padding:18px max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px))}
+.logo{display:flex;align-items:center;gap:10px;font:600 25px/1 var(--f-d);letter-spacing:.02em;text-decoration:none}
+.logo svg{width:32px;height:17px;color:var(--brass-l)}
+.menu{display:flex;gap:24px;margin-left:auto;font-size:14px;letter-spacing:.04em}
+.menu a{text-decoration:none;opacity:.88}
+.menu a:hover{opacity:1;color:var(--brass-l)}
+/* левый край текста = начало слова «Музей» в логотипе: отступ шапки + значок лотоса 32px + промежуток 10px */
+.hero-text{position:absolute;z-index:2;left:calc(max(20px,env(safe-area-inset-left,0px)) + 42px);bottom:clamp(30px,8vh,80px);max-width:min(520px,44%)}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-l);font-weight:600}
+.hero h1{font:600 clamp(40px,5.6vw,72px)/1 var(--f-d);margin:10px 0 14px;text-wrap:balance}
+.hero p{margin:0 0 24px;font-size:17px;color:#e9dfce;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;font:600 15px var(--f-b);text-decoration:none;border:1px solid transparent;cursor:pointer}
+/* призыв к действию: насыщенный шафраново-жёлтый, ярче всех остальных цветов страницы */
+.btn.gold,.btn.cta{background:#ffb703;color:#1b1203;box-shadow:0 6px 22px rgba(255,170,0,.35);transition:background .2s,transform .2s}
+.btn.gold:hover,.btn.cta:hover{background:#ffc52e;transform:translateY(-1px)}
+.btn.line{border-color:rgba(246,239,226,.55);color:#f6efe2}
+.btn.dark{background:var(--ink);color:var(--paper)}
+/* разделы */
+section{padding-block:84px}
+section.alt{background:var(--ivory)}
+h2{font:600 clamp(34px,4.6vw,54px)/1.05 var(--f-d);margin:0 0 14px;text-wrap:balance}
+.sub{color:var(--mute);max-width:62ch;margin:0 0 38px;font-size:17.5px}
+.lotus{display:block;width:44px;height:22px;margin-bottom:14px;color:var(--brass)}
+.mission{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
+.mission blockquote{margin:0;font:500 italic clamp(24px,2.6vw,32px)/1.3 var(--f-d);color:var(--ink);border-left:2px solid var(--brass);padding-left:22px}
+.pillars{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pillars li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.pillars b{display:block;font:600 21px/1.2 var(--f-d)}
+.pillars span{color:var(--mute);font-size:15px}
+.pillars i{font-style:normal;width:40px;height:40px;border-radius:50%;border:1px solid var(--brass);color:var(--brass);display:grid;place-items:center;font:600 23px/1 var(--f-d);font-variant-numeric:lining-nums;font-feature-settings:"lnum"}
+/* залы */
+.halls{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.hall{position:relative;border-radius:12px;overflow:hidden;background:#1b1916;color:#f6efe2;min-height:240px;grid-column:span 4}
+.hall.w{grid-column:span 8}
+.hall.tall{min-height:340px}
+.hall img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.hall:hover img{transform:scale(1.04)}
+.hall div{position:absolute;left:0;right:0;bottom:0;padding:44px 18px 16px;background:linear-gradient(180deg,rgba(15,13,11,0),rgba(15,13,11,.86))}
+.hall b{display:block;font:600 23px/1.15 var(--f-d)}
+.hall span{font-size:14px;color:#e2d7c4}
+/* форматы */
+/* миниатюры форматов вырезаны на прозрачном фоне и лежат прямо на карточке */
+.fmt>img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center bottom;display:block;margin:-6px 0 4px;filter:drop-shadow(0 14px 16px rgba(0,0,0,.28))}
+.formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (hover:hover) and (pointer:fine){.fmt>img{cursor:zoom-in}}
+.lens{position:fixed;inset:0;z-index:50;display:grid;place-items:center;pointer-events:none;background:rgba(20,18,15,.88);opacity:0;visibility:hidden}
+.lens.on{opacity:1;visibility:visible;transition:opacity .2s}
+.lens-box{position:relative}
+.lens-box>img{display:block;width:100%;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+.lens-box svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.lens .hold *{fill:transparent;stroke:none}
+.lens.on .hold *{pointer-events:auto}
+.lens-tag{position:absolute;transform:translate(-50%,-50%);padding:6px 16px;border:1px solid var(--brass-l);border-radius:999px;background:rgba(20,18,15,.9);color:#f6efe2;font:600 23px/1.2 var(--f-d);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
+.lens-tag.on{opacity:1}
+.fmt{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px 22px 22px;display:flex;flex-direction:column;gap:10px}
+section.alt .fmt{background:var(--paper)}
+.fmt .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600}
+.fmt h3{font:600 30px/1.05 var(--f-d);margin:0}
+.fmt .lead{font:500 italic 19px/1.35 var(--f-d);color:var(--ink);margin:0}
+.fmt ul{margin:4px 0 0;padding-left:18px;color:var(--mute);font-size:15px}
+.fmt ul li+li{margin-top:3px}
+.fmt .plus{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14.5px}
+.fmt .plus b{color:var(--brass)}
+.grow{margin:30px 0 0;text-align:center;font:500 italic clamp(21px,2.2vw,26px)/1.35 var(--f-d)}
+/* поддержка */
+.ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;counter-reset:w}
+.way{background:var(--paper);padding:26px 22px}
+.way::before{counter-increment:w;content:"0" counter(w);display:block;font:600 15px var(--f-d);color:var(--brass);letter-spacing:.1em;margin-bottom:10px}
+.way b{display:block;font:600 23px/1.15 var(--f-d);margin-bottom:8px}
+.way span{color:var(--mute);font-size:15px}
+.way.main{background:var(--granite);color:#f3ece0;box-shadow:inset 0 3px 0 #ffb703}
+.way.main span{color:#cfc3b0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:30px}
+.cta-row p{margin:0;color:var(--mute);font-size:15px;max-width:52ch}
+/* команда */
+.leader{display:grid;grid-template-columns:300px minmax(0,1fr);gap:40px;align-items:center}
+.ph{aspect-ratio:4/5;border-radius:14px;border:1px dashed var(--brass);display:grid;place-items:center;text-align:center;color:var(--mute);font-size:14px;padding:20px;background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(156,122,44,.06) 12px 24px)}
+.ph.photo{display:block;padding:0;border:0;background:none;overflow:hidden;box-shadow:0 18px 40px rgba(40,25,8,.18)}
+.ph.photo img{display:block;width:100%;height:100%;object-fit:cover}
+.todo{display:inline-block;background:var(--saffron);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:middle}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+.roles li{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14.5px;background:var(--paper)}
+/* контакты */
+.contact{background:var(--granite);color:#efe6d6}
+.contact h2{color:#f6efe2}
+.contact .sub{color:#c7bba8}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:6px}
+.cbox{border:1px solid #3d362e;border-radius:12px;padding:20px}
+.cbox small{display:block;color:#a99d8d;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.cbox b{font:600 22px var(--f-d)}
+footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
+@media (max-width:980px){.ways{grid-template-columns:repeat(2,minmax(0,1fr))}.formats{grid-template-columns:1fr}.mission{grid-template-columns:1fr;gap:28px}}
+@media (max-width:760px){.menu{display:none}.hero-text{max-width:none;right:max(20px,env(safe-area-inset-right,0px))}.hero-media,.hero-video{object-position:66% 50%}
+  .hall,.hall.w{grid-column:span 12;min-height:220px}.leader{grid-template-columns:1fr}.ph{max-width:260px}.ways{grid-template-columns:1fr}section{padding-block:60px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hall img{transition:none}}
 </style></head><body>
-<nav class="hub" aria-label="Режимы просмотра">
-<a class="hub-brand" href="index.html">Музей Индии <span>рабочая площадка</span></a>
-<div class="hub-modes"><a href="razmetka/index.html">Разметка и референсы</a><a href="sayt/index.html">Сайт · черновик</a></div>
-</nav>
-<main>
-<header>
-  <h1>Музей Индии в Москве</h1>
-  <p class="lead">Рабочая площадка команды. Здесь видно, как идёт работа над сайтом-презентацией для инвесторов и виртуальной экскурсией по будущему музею в помещении на пер. Лихов, 12/2. Страницы обновляются по мере работы, это не финальная версия.</p>
+
+<header class="hero" id="glavnaya">
+  <picture>
+    <source type="image/webp" srcset="assets/img/hero-1280.webp 1280w, assets/img/hero-1920.webp 1920w" sizes="100vw">
+    <img class="hero-media" src="assets/img/hero-1920.jpg" srcset="assets/img/hero-1280.jpg 1280w, assets/img/hero-1920.jpg 1920w" sizes="100vw" alt="Вечерний фасад будущего Музея Индии" fetchpriority="high">
+  </picture>
+  <video class="hero-video" id="hero-video" data-base="assets/video/hero-loop" muted playsinline loop preload="auto" hidden></video>
+  <div class="top">
+    <a class="logo" href="#glavnaya"><svg viewBox="0 0 44 22" aria-hidden="true"><path d="M22 2c3 4 4 8 0 18C18 10 19 6 22 2Zm0 18C16 13 9 11 3 12c4 5 11 8 19 8Zm0 0c6-7 13-9 19-8-4 5-11 8-19 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Музей Индии</a>
+    <nav class="menu" aria-label="Разделы"><a href="#missiya">Миссия</a><a href="#zaly">Залы</a><a href="#formaty">Форматы</a><a href="#podderzhka">Как поддержать</a><a href="#kontakty">Контакты</a></nav>
+  </div>
+  <div class="hero-text">
+    <div class="eyebrow">Москва · культурно-просветительский центр</div>
+    <h1>Музей Индии в Москве</h1>
+    <p>Место, где Индию можно увидеть, услышать и почувствовать: экспозиции, лекции, музыка и танец, книги, духовные традиции и гостеприимство.</p>
+    <div class="btns"><a class="btn gold" href="#podderzhka">Стать меценатом</a><a class="btn line" href="#missiya">О проекте</a></div>
+  </div>
 </header>
 
-<section>
-  <h2>Режимы просмотра</h2>
-  <div class="modes">
-    <a class="mode" href="razmetka/index.html">
-      <div class="pic q" style="background-image:url('assets/referensy/glavny.jpg');background-position:0 100%"></div>
-      <div class="txt"><em>Рабочий материал</em><b>Разметка и референсы</b><span>Планы трёх уровней, 16 зон, 11 точек для панорам 360° и маршрут экскурсии. В карточке каждой комнаты — фотореференсы с четырёх ракурсов.</span></div>
-    </a>
-    <a class="mode" href="sayt/index.html">
-      <div class="pic" style="background-image:url('assets/img/fasad.webp');background-position:center 40%"></div>
-      <div class="txt"><em>Черновик</em><b>Сайт для инвесторов</b><span>Как будет выглядеть сайт: концепция, пространство музея, место под виртуальную экскурсию и участие в проекте.</span></div>
-    </a>
+<section id="missiya">
+  <div class="wrap mission">
+    <div>
+      <svg class="lotus" viewBox="0 0 44 22" aria-hidden="true"><path d="M22 2c3 4 4 8 0 18C18 10 19 6 22 2Zm0 18C16 13 9 11 3 12c4 5 11 8 19 8Zm0 0c6-7 13-9 19-8-4 5-11 8-19 8ZM22 20c-3-6-8-10-14-12 2 6 7 10 14 12Zm0 0c3-6 8-10 14-12-2 6-7 10-14 12Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      <h2>Миссия музея</h2>
+      <p class="sub" style="margin-bottom:24px">Знакомить людей с культурой, историей, философией и духовными традициями Индии. Проект способен стать одним из культурных центров столицы, укрепить международные связи и сделать жизнь многих людей ярче и счастливее.</p>
+      <blockquote>«Музей, в котором Индию не только рассматривают за стеклом, а проживают».</blockquote>
+    </div>
+    <ul class="pillars">
+      <li><i>1</i><div><b>Постоянная экспозиция</b><span>Скульптура, древние рукописи, музыка, танец и ремёсла — все виды традиционной культуры Индии.</span></div></li>
+      <li><i>2</i><div><b>Лекторий и живые программы</b><span>Изучение священных трактатов, встречи, мантра-медитации, киртаны и камерные спектакли.</span></div></li>
+      <li><i>3</i><div><b>Книги и традиции</b><span>Книжная галерея, алтарная комната с поклонением Божествам, наряды и фотозоны.</span></div></li>
+      <li><i>4</i><div><b>Гостеприимство</b><span>Вегетарианское кафе с индийскими сладостями и ярмарка индийских товаров.</span></div></li>
+    </ul>
   </div>
 </section>
 
-<section>
-  <h2>Журнал работы</h2>
-  <ol class="log" reversed>
-    <li><time datetime="2026-10-24">24 окт 2026</time><ul><li>Запущена рабочая площадка на GitHub Pages: разметка с референсами и черновик сайта.</li></ul></li>
-    <li><time datetime="2026-10-23">23 окт 2026</time><ul>
-      <li>Выбрано помещение: пер. Лихов, 12/2, угол Садового кольца — около 584 м² на трёх уровнях, арочные витрины, потолки 4,6 м.</li>
-      <li>Планы из объявления оцифрованы, программа музея разложена на 16 зон, намечены 11 точек 360° и маршрут.</li>
-      <li>Для 10 залов сделаны фотореференсы: настроение, материалы и наполнение каждой комнаты.</li>
-      <li>Выбрана технология экскурсии: 3D-модель в Blender, генерация интерьера по ней, панорамы 360° на сайте.</li>
-    </ul></li>
-  </ol>
+<section id="zaly" class="alt">
+  <div class="wrap">
+    <h2>Каким будет музей</h2>
+    <p class="sub">Образы пространств, которые мы создаём. Это концептуальные визуализации: итоговые интерьеры будут разработаны под конкретное помещение.</p>
+    <div class="halls">
+      <article class="hall w tall"><img src="assets/img/zaly/glavny.jpg" alt="" loading="lazy"><div><b>Зал экспонатов</b><span>Бронзовые мурти, скульптура и храмовая резьба</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/vestibul.jpg" alt="" loading="lazy"><div><b>Вход и встреча гостей</b><span>Резная стойка, арка с лотосом</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/rukopisi.jpg" alt="" loading="lazy"><div><b>Зал рукописей</b><span>Пальмовые листы и манускрипты на санскрите</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/muzyka.jpg" alt="" loading="lazy"><div><b>Музыка и танец</b><span>Ситар, табла, костюмы классического танца</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/altar.jpg" alt="" loading="lazy"><div><b>Алтарная комната</b><span>Поклонение Божествам в индийских традициях</span></div></article>
+      <article class="hall w"><img src="assets/img/zaly/zal.jpg" alt="" loading="lazy"><div><b>Лекторий и сцена</b><span>Лекции, киртаны, концерты, спектакли</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/biblioteka.jpg" alt="" loading="lazy"><div><b>Книжная галерея</b><span>Вся мудрость древней Индии в одном месте</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/foto.jpg" alt="" loading="lazy"><div><b>Наряды и фотостудия</b><span>Сари, украшения и индийский реквизит для съёмки</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/chaynaya.jpg" alt="" loading="lazy"><div><b>Вегетарианское кафе</b><span>Индийская вегетарианская кухня и сладости</span></div></article>
+      <article class="hall"><img src="assets/img/zaly/lavka.jpg" alt="" loading="lazy"><div><b>Ярмарка</b><span>Ткани, благовония, книги, специи</span></div></article>
+    </div>
+  </div>
 </section>
 
-<section>
-  <h2>Что дальше</h2>
-  <ol class="next">
-    <li>Уточнить на просмотре высоту под антресолью и площадь подвала.</li>
-    <li>Собрать 3D-модель первого этажа в Blender по планам, выставить свет.</li>
-    <li>Сделать пилотную панораму главного зала и проверить качество.</li>
-    <li>Собрать тур из панорам и встроить его в сайт.</li>
-  </ol>
+<section id="formaty">
+  <div class="wrap">
+    <h2>Музей в любом масштабе</h2>
+    <p class="sub">Концепция гибкая: музей можно воплотить в разном масштабе — под помещение, которое мы найдём вместе с меценатами. Вот несколько возможных форматов, и каждый из них — законченный музей со своей сильной стороной.</p>
+    <div class="formats">
+      <article class="fmt">
+        <img src="assets/img/formaty/kamerny.png" alt="Камерный музей: один зал" loading="lazy">
+        <div class="tag">Формат I</div>
+        <h3>Камерный музей</h3>
+        <p class="lead">Музей-шкатулка: один драгоценный зал, где каждый экспонат на виду.</p>
+        <ul><li>Зал экспозиции со скульптурой и рукописями</li><li>Алтарный уголок</li><li>Вечера лекций и медитаций для небольшой группы</li><li>Книжная полка и лавка</li></ul>
+        <p class="plus"><b>Сильная сторона:</b> глубина, тишина и личный разговор с каждым гостем. Быстрый старт.</p>
+      </article>
+      <article class="fmt">
+        <img src="assets/img/formaty/centr.png" alt="Музей и культурный центр: несколько залов" loading="lazy">
+        <div class="tag">Формат II</div>
+        <h3>Музей и культурный центр</h3>
+        <p class="lead">Полноценный музей с постоянной живой программой.</p>
+        <ul><li>Несколько залов экспозиции</li><li>Лекторий с местами для зрителей</li><li>Алтарная комната и библиотека</li><li>Вегетарианское кафе и лавка</li></ul>
+        <p class="plus"><b>Сильная сторона:</b> баланс экспозиции и событий — гостям есть куда возвращаться.</p>
+      </article>
+      <article class="fmt">
+        <img src="assets/img/formaty/flagman.png" alt="Флагманский центр на двух уровнях" loading="lazy">
+        <div class="tag">Формат III</div>
+        <h3>Флагманский центр</h3>
+        <p class="lead">Главная площадка индийской культуры в Москве.</p>
+        <ul><li>Анфилада залов и книжная галерея</li><li>Сцена для танца и спектаклей</li><li>Фотостудия с нарядами</li><li>Вегетарианское кафе со своим входом и ярмарка</li></ul>
+        <p class="plus"><b>Сильная сторона:</b> масштаб, событийность, городской уровень и партнёрства.</p>
+      </article>
+    </div>
+    <p class="grow">Можно начать с камерного музея и вырасти до флагманского.</p>
+  </div>
 </section>
 
-<footer>Проект команды просветителей под руководством Вячеслава Рузова. Материалы на этой площадке — рабочие.</footer>
-</main>
+<section id="podderzhka" class="alt">
+  <div class="wrap">
+    <h2>Как поддержать музей</h2>
+    <p class="sub">Музей начинается с мецената. Проект реализуется при поддержке меценатов, партнёров и благотворителей — выберите удобный для вас способ участия.</p>
+    <div class="ways">
+      <div class="way main"><b>Помещение</b><span>Предоставить помещение в центре Москвы в безвозмездное пользование — приоритетный для нас вариант.</span></div>
+      <div class="way"><b>Аренда</b><span>Взять на себя ежемесячную аренду помещения под выбранный формат музея.</span></div>
+      <div class="way"><b>Ремонт</b><span>Поддержать подготовку помещения: пол, стены, потолок, коммуникации.</span></div>
+      <div class="way"><b>Оснащение</b><span>Мебель, витрины, картины, книги, музыкальное оборудование, кухня, наряды.</span></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn cta" href="https://forms.yandex.ru/u/6abe0e7e95add51006759697" target="_blank" rel="noopener">Заполнить анкету</a>
+      <p>Анкета займёт пару минут. Рабочая группа свяжется с вами и расскажет о деталях проекта.</p>
+    </div>
+  </div>
+</section>
+
+<section id="komanda">
+  <div class="wrap leader">
+    <picture class="ph photo">
+      <source type="image/webp" srcset="assets/img/rukovoditel-480.webp 480w, assets/img/rukovoditel.webp 800w" sizes="(max-width:760px) 260px, 300px">
+      <img src="assets/img/rukovoditel.jpg" srcset="assets/img/rukovoditel-480.jpg 480w, assets/img/rukovoditel.jpg 800w" sizes="(max-width:760px) 260px, 300px" alt="Вячеслав Рузов, руководитель проекта" loading="lazy">
+    </picture>
+    <div>
+      <h2>Команда проекта</h2>
+      <p class="sub" style="margin-bottom:18px">Музей создаёт команда просветителей под руководством Вячеслава Рузова. <span class="todo">заглушка</span> Здесь будут 2–3 факта о руководителе и команде: опыт, проекты, аудитория.</p>
+      <p style="margin:0 0 14px;font-weight:600">Мы приглашаем в команду:</p>
+      <ul class="roles">
+        <li>Экскурсоводы</li><li>Лекторы</li><li>Пуджари</li><li>Музыканты и ведущие киртанов</li><li>Повара</li><li>Дизайнеры и художники</li><li>Фотографы</li><li>IT-специалисты</li><li>PR и маркетинг</li><li>Организаторы</li><li>Стилисты</li><li>Волонтёры</li>
+      </ul>
+      <a class="btn cta" href="https://forms.yandex.ru/u/6abe0e7e95add51006759697" target="_blank" rel="noopener">Присоединиться к команде</a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakty" class="contact">
+  <div class="wrap">
+    <h2>Связаться с рабочей группой</h2>
+    <p class="sub">Готовы обсудить помещение, формат и любые вопросы об участии.</p>
+    <div class="cgrid">
+      <div class="cbox"><small>Координатор <span class="todo">заглушка</span></small><b>Имя Фамилия</b></div>
+      <div class="cbox"><small>Телефон <span class="todo">заглушка</span></small><b>+7 000 000-00-00</b></div>
+      <div class="cbox"><small>Telegram <span class="todo">заглушка</span></small><b>@username</b></div>
+      <div class="cbox"><small>Анкета</small><b><a href="https://forms.yandex.ru/u/6abe0e7e95add51006759697" target="_blank" rel="noopener" style="color:var(--brass-l)">forms.yandex.ru</a></b></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Музей Индии в Москве · проект команды Вячеслава Рузова · визуализации концептуальные</div></footer>
+
+<script src="assets/formaty-zones.js"></script>
+<script>
+const hv=document.getElementById("hero-video");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  // WebM (VP9) — основной и самый лёгкий; MP4 (H.264) — запасной
+  const q=innerWidth*devicePixelRatio<1500?"720":"1080";
+  for(const [ext,type] of [["webm",'video/webm; codecs="vp9"'],["mp4",'video/mp4; codecs="avc1.640028"']]){
+    const s=document.createElement("source");s.src=`${hv.dataset.base}-${q}.${ext}`;s.type=type;hv.appendChild(s);
+  }
+  hv.addEventListener("canplay",()=>{hv.hidden=false;hv.play().catch(()=>{hv.hidden=true})},{once:true});
+  hv.lastElementChild.addEventListener("error",()=>{hv.hidden=true});
+  hv.load();
+}
+/* форматы: при наведении мышью модель крупно поверх страницы. Окно держится, пока курсор на миниатюре или в контуре
+   музея (SVG из assets/formaty-zones.js); внутри контура у каждой комнаты невидимая область: наведение показывает её подпись */
+if(matchMedia("(hover:hover) and (pointer:fine)").matches&&window.FORMAT_ZONES){
+  const el=(tag,attrs,parent)=>{const e=document.createElementNS("http://www.w3.org/2000/svg",tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return parent.appendChild(e)};
+  const lens=document.body.appendChild(Object.assign(document.createElement("div"),{className:"lens"}));
+  const box=lens.appendChild(Object.assign(document.createElement("div"),{className:"lens-box"}));
+  const big=box.appendChild(document.createElement("img"));big.alt="";
+  const svg=el("svg",{},box);
+  const tag=box.appendChild(Object.assign(document.createElement("div"),{className:"lens-tag"}));
+  const calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cur=null,timer=0,lit=null;
+  const light=z=>{lit=z;tag.classList.toggle("on",!!z);if(!z)return;tag.textContent=z.name;tag.style.left=z.label[0]+"%";tag.style.top=z.label[1]+"%"};
+  const close=()=>{clearTimeout(timer);cur=null;light(null);lens.classList.remove("on")};
+  function draw(d){
+    svg.replaceChildren();svg.setAttribute("viewBox",`0 0 ${d.w} ${d.h}`);
+    const hold=el("g",{class:"hold"},svg);
+    el("polygon",{points:d.outline},hold);
+    const hit=(p,i)=>{const h=el("polygon",{points:p},hold);
+      h.addEventListener("mouseenter",()=>light(d.zones[i]));
+      h.addEventListener("mouseleave",()=>{if(lit===d.zones[i])light(null)})};
+    d.zones.forEach((z,i)=>z.tall.forEach(p=>hit(p,i)));   // сперва стены, сверху полы: пол всегда важнее чужой стены
+    d.zones.forEach((z,i)=>hit(z.floor,i));
+    hold.addEventListener("mouseenter",()=>clearTimeout(timer));
+    hold.addEventListener("mouseleave",e=>{if(e.relatedTarget!==cur)close()});
+  }
+  document.querySelectorAll(".fmt>img").forEach(t=>{
+    const name=t.getAttribute("src").match(/(\w+)\.png/)[1],src=`assets/img/formaty/${name}-big.webp`;
+    let pre=null;
+    t.addEventListener("mouseenter",async()=>{
+      clearTimeout(timer);
+      if(cur===t)return;
+      cur=t;pre=pre||Object.assign(new Image(),{src});
+      await Promise.all([pre.decode().catch(()=>{}),new Promise(r=>setTimeout(r,120))]);
+      if(cur!==t)return;
+      const k=Math.min(1,innerWidth*.92/pre.naturalWidth,innerHeight*.9/pre.naturalHeight),w=pre.naturalWidth*k,r=t.getBoundingClientRect();
+      light(null);draw(window.FORMAT_ZONES[name]);big.src=src;box.style.width=w+"px";lens.classList.add("on");
+      if(!calm)box.animate([{transform:`translate(${r.left+r.width/2-innerWidth/2}px,${r.top+r.height/2-innerHeight/2}px) scale(${r.width/w})`},{transform:"none"}],{duration:240,easing:"ease-out"});
+    });
+    // контур может быть в стороне от миниатюры: только курсору, идущему к нему, даём время дойти, иначе закрываем сразу
+    t.addEventListener("mouseleave",e=>{
+      if(!lens.classList.contains("on")){cur=null;return}
+      if(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(".hold"))return;
+      const r=t.getBoundingClientRect(),b=box.getBoundingClientRect();
+      const toward=(e.clientX-r.left-r.width/2)*(b.left+b.width/2-r.left-r.width/2)+(e.clientY-r.top-r.height/2)*(b.top+b.height/2-r.top-r.height/2)>0;
+      if(toward){clearTimeout(timer);timer=setTimeout(close,300)}else close();
+    });
+  });
+  addEventListener("scroll",close,{passive:true});
+  addEventListener("resize",close);
+  addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+}
+</script>
 </body></html>

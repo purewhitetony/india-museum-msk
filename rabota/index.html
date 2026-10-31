@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Музей Индии · рабочая площадка</title>
+<meta name="description" content="Ход работы над сайтом-презентацией и виртуальной экскурсией Музея Индии в Москве.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<style>
+/* Layout: одна колонка — вступление, два режима карточками, журнал работы и план следующих шагов */
+:root{--bg:#f4efe6;--card:#fffdf8;--ink:#26221d;--mute:#776c5f;--line:#e2d8c7;--brass:#9a7428;
+  --f-d:"Cormorant Garamond",Georgia,serif;--f-b:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#191714;--card:#221f1b;--ink:#eee6d9;--mute:#a69a8a;--line:#38312a;--brass:#d2a64e;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-b)}
+main{max-width:1080px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
+h1{font:600 clamp(36px,6vw,60px)/1.02 var(--f-d);margin:0 0 12px;text-wrap:balance}
+h2{font:600 30px/1.1 var(--f-d);margin:0 0 14px}
+.lead{max-width:62ch;color:var(--mute);margin:0;font-size:17px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.mode{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;color:inherit;text-decoration:none;transition:transform .2s,border-color .2s}
+.mode:hover{transform:translateY(-2px);border-color:var(--brass)}
+.mode:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.mode .pic{aspect-ratio:16/9;background-size:cover;background-position:center}
+.mode .pic.q{background-size:200% 200%}
+.mode .txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.mode b{font:600 22px/1.15 var(--f-d)}
+.mode span{color:var(--mute);font-size:14.5px}
+.mode em{font-style:normal;color:var(--brass);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.log>li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.log ul li+li{margin-top:4px}
+.log time{font-variant-numeric:tabular-nums;color:var(--brass);font-weight:600;font-size:14px}
+.log ul{margin:0;padding-left:18px}
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;counter-reset:n;list-style:none;padding:0;margin:0}
+.next li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:15px}
+.next li::before{counter-increment:n;content:"Шаг " counter(n);display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:4px}
+footer{color:var(--mute);font-size:13.5px}
+@media (max-width:560px){.log>li{grid-template-columns:1fr;gap:4px}}
+@media (prefers-reduced-motion:reduce){.mode{transition:none}}
+</style></head><body>
+<nav class="hub" aria-label="Режимы просмотра">
+<a class="hub-brand" href="index.html">Музей Индии <span>рабочая площадка</span></a>
+<div class="hub-modes"><a href="../index.html">Лендинг</a><a href="../razmetka/index.html">Разметка и референсы</a><a href="../sayt/index.html">Сайт · черновик</a></div>
+</nav>
+<main>
+<header>
+  <h1>Музей Индии в Москве</h1>
+  <p class="lead">Рабочая площадка команды. Здесь видно, как идёт работа над сайтом-презентацией для инвесторов и виртуальной экскурсией по будущему музею в помещении на пер. Лихов, 12/2. Страницы обновляются по мере работы, это не финальная версия.</p>
+</header>
+
+<section>
+  <h2>Режимы просмотра</h2>
+  <p style="margin:-6px 0 18px;color:var(--mute)">Для меценатов — <a href="../index.html" style="color:var(--brass);font-weight:600">лендинг проекта</a> (главная страница по ссылке без /rabota/).</p>
+  <div class="modes">
+    <a class="mode" href="../razmetka/index.html">
+      <div class="pic q" style="background-image:url('../assets/referensy/glavny.jpg');background-position:0 100%"></div>
+      <div class="txt"><em>Рабочий материал</em><b>Разметка и референсы</b><span>Планы трёх уровней, 16 зон, 11 точек для панорам 360° и маршрут экскурсии. В карточке каждой комнаты — фотореференсы с четырёх ракурсов.</span></div>
+    </a>
+    <a class="mode" href="../sayt/index.html">
+      <div class="pic" style="background-image:url('../assets/img/hero-1280.webp');background-position:center 40%"></div>
+      <div class="txt"><em>Черновик</em><b>Сайт для инвесторов</b><span>Как будет выглядеть сайт: концепция, пространство музея, место под виртуальную экскурсию и участие в проекте.</span></div>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>Журнал работы</h2>
+  <ol class="log" reversed>
+    <li><time datetime="2026-10-28">28 окт 2026</time><ul><li>Лендинг для меценатов стал главной страницей: миссия, залы, три формата музея, способы поддержки, анкета. Рабочая площадка переехала в /rabota/.</li><li>Главный экран: живая петля вечернего фасада вместо статичной картинки.</li></ul></li>
+    <li><time datetime="2026-10-24">24 окт 2026</time><ul><li>Запущена рабочая площадка на GitHub Pages: разметка с референсами и черновик сайта.</li></ul></li>
+    <li><time datetime="2026-10-23">23 окт 2026</time><ul>
+      <li>Выбрано помещение: пер. Лихов, 12/2, угол Садового кольца — около 584 м² на трёх уровнях, арочные витрины, потолки 4,6 м.</li>
+      <li>Планы из объявления оцифрованы, программа музея разложена на 16 зон, намечены 11 точек 360° и маршрут.</li>
+      <li>Для 10 залов сделаны фотореференсы: настроение, материалы и наполнение каждой комнаты.</li>
+      <li>Выбрана технология экскурсии: 3D-модель в Blender, генерация интерьера по ней, панорамы 360° на сайте.</li>
+    </ul></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Что дальше</h2>
+  <ol class="next">
+    <li>Уточнить на просмотре высоту под антресолью и площадь подвала.</li>
+    <li>Собрать 3D-модель первого этажа в Blender по планам, выставить свет.</li>
+    <li>Сделать пилотную панораму главного зала и проверить качество.</li>
+    <li>Собрать тур из панорам и встроить его в сайт.</li>
+  </ol>
+</section>
+
+<footer>Проект команды просветителей под руководством Вячеслава Рузова. Материалы на этой площадке — рабочие.</footer>
+</main>
+</body></html>
