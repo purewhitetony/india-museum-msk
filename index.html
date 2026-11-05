@@ -25,7 +25,7 @@ a{color:inherit}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(12,10,8,.74) 0%,rgba(12,10,8,.34) 32%,rgba(12,10,8,0) 56%),linear-gradient(180deg,rgba(12,10,8,.55) 0%,rgba(12,10,8,0) 22%,rgba(12,10,8,0) 66%,rgba(12,10,8,.62) 100%)}
 .top{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;align-items:center;gap:18px;padding:18px max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px))}
 .logo{display:flex;align-items:center;gap:10px;font:600 25px/1 var(--f-d);letter-spacing:.02em;text-decoration:none}
-.logo svg{width:32px;height:17px;color:var(--brass-l)}
+.logo svg{width:34px;height:21px}
 .menu{display:flex;gap:24px;margin-left:auto;font-size:14px;letter-spacing:.04em}
 .menu a{text-decoration:none;opacity:.88}
 .menu a:hover{opacity:1;color:var(--brass-l)}
@@ -46,7 +46,7 @@ section{padding-block:84px}
 section.alt{background:var(--ivory)}
 h2{font:600 clamp(34px,4.6vw,54px)/1.05 var(--f-d);margin:0 0 14px;text-wrap:balance}
 .sub{color:var(--mute);max-width:62ch;margin:0 0 38px;font-size:17.5px}
-.lotus{display:block;width:44px;height:22px;margin-bottom:14px;color:var(--brass)}
+.lotus{display:block;width:58px;height:36px;margin-bottom:12px}
 .mission{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
 .mission blockquote{margin:0;font:500 italic clamp(24px,2.6vw,32px)/1.3 var(--f-d);color:var(--ink);border-left:2px solid var(--brass);padding-left:22px}
 .pillars{list-style:none;margin:0;padding:0;display:grid;gap:14px}
@@ -125,10 +125,13 @@ section.alt .fmt{background:var(--paper)}
 .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:30px}
 .cta-row p{margin:0;color:var(--mute);font-size:15px;max-width:52ch}
 /* команда */
-.leader{display:grid;grid-template-columns:300px minmax(0,1fr);gap:40px;align-items:center}
+.leader{display:grid;grid-template-columns:380px minmax(0,1fr);gap:40px;align-items:stretch}
+.leader .ph.photo{aspect-ratio:auto;position:relative}
+.leader .ph.photo img{position:absolute;inset:0}
+.leader .btn{display:flex;width:max-content}
 .ph{aspect-ratio:4/5;border-radius:14px;border:1px dashed var(--brass);display:grid;place-items:center;text-align:center;color:var(--mute);font-size:14px;padding:20px;background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(156,122,44,.06) 12px 24px)}
 .ph.photo{display:block;padding:0;border:0;background:none;overflow:hidden;box-shadow:0 18px 40px rgba(40,25,8,.18)}
-.ph.photo img{display:block;width:100%;height:100%;object-fit:cover}
+.ph.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
 .todo{display:inline-block;background:var(--saffron);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:middle}
 .roles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
 .roles li{border:1px solid var(--line);border-radius:6px;padding:6px 14px;font-size:14.5px;background:var(--paper)}
@@ -145,11 +148,33 @@ section.alt .fmt{background:var(--paper)}
 .cbox small{display:block;color:#a99d8d;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
 .cbox b{font:600 22px var(--f-d)}
 footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
-@media (max-width:980px){.ways{grid-template-columns:1fr;gap:18px}.formats{grid-template-columns:1fr}.mission{grid-template-columns:1fr;gap:28px}}
+@media (max-width:980px){.leader{grid-template-columns:1fr;gap:28px}.leader .ph.photo{aspect-ratio:4/5;max-width:300px}.ways{grid-template-columns:1fr;gap:18px}.formats{grid-template-columns:1fr}.mission{grid-template-columns:1fr;gap:28px}}
 @media (max-width:760px){.menu{display:none}.hero-text{max-width:none;right:max(20px,env(safe-area-inset-right,0px))}.hero-media,.hero-video{object-position:66% 50%}
-  .hall,.hall.w{grid-column:span 12;min-height:220px}.leader{grid-template-columns:1fr}.ph{max-width:260px}section{padding-block:60px}}
+  .hall,.hall.w{grid-column:span 12;min-height:220px}.leader{grid-template-columns:1fr}.ph{max-width:260px}.leader .ph.photo{aspect-ratio:4/5}section{padding-block:60px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hall img{transition:none}}
 </style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="lt-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4ae5f"/><stop offset="1" stop-color="#80611f"/></linearGradient>
+<linearGradient id="lt-mid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ecd08c"/><stop offset="1" stop-color="#a07c2e"/></linearGradient>
+<linearGradient id="lt-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbebbb"/><stop offset=".55" stop-color="#e2bd6c"/><stop offset="1" stop-color="#b08436"/></linearGradient>
+<symbol id="lotus-icon" viewBox="0 0 64 40">
+<g stroke="#6b4f18" stroke-width=".7" stroke-linejoin="round" stroke-opacity=".75">
+<g id="lt-half">
+<path d="M31 35.5C22.6 39 10.6 39.2 2.4 33.8c8.4-3.4 20.6-2.8 28.6 1.7Z" fill="url(#lt-back)"/>
+<path d="M30.6 35C19.4 36 8.8 30 5 18.8c10.8.2 20.8 6.8 25.6 16.2Z" fill="url(#lt-mid)"/>
+<path d="M31.6 34.5C26 28 24.2 17 26.4 6.6c4.6 5.6 6.4 16 5.2 27.9Z" fill="url(#lt-back)"/>
+<path d="M31.3 35C21.6 32 16.2 20.6 18.6 8.4c8.2 5 13.9 15.4 12.7 26.6Z" fill="url(#lt-mid)"/>
+</g>
+<use href="#lt-half" transform="matrix(-1 0 0 1 64 0)"/>
+<path d="M32 35.6C24.4 28.4 23.8 14.8 32 3c8.2 11.8 7.6 25.4 0 32.6Z" fill="url(#lt-front)"/>
+</g>
+<g fill="none" stroke="#fff4d2" stroke-width=".55" stroke-linecap="round" stroke-opacity=".6">
+<path d="M32 33C31.2 25 31.2 14.5 32 7.2"/>
+<path id="lt-veins" d="M30.3 32.4C24.4 27.4 20.6 19.4 19.8 12.2M29.4 33.6C21.4 31.4 13.2 27 8 20.8M29.8 35.7C21.6 36.8 12.4 36.2 5 33.9"/>
+<use href="#lt-veins" transform="matrix(-1 0 0 1 64 0)"/>
+</g>
+</symbol>
+</defs></svg>
 
 <header class="hero" id="glavnaya">
   <picture>
@@ -158,7 +183,7 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
   </picture>
   <video class="hero-video" id="hero-video" data-base="assets/video/hero-loop" muted playsinline loop preload="auto" hidden></video>
   <div class="top">
-    <a class="logo" href="#glavnaya"><svg viewBox="0 0 44 22" aria-hidden="true"><path d="M22 2c3 4 4 8 0 18C18 10 19 6 22 2Zm0 18C16 13 9 11 3 12c4 5 11 8 19 8Zm0 0c6-7 13-9 19-8-4 5-11 8-19 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Музей Индии</a>
+    <a class="logo" href="#glavnaya"><svg viewBox="0 0 64 40" aria-hidden="true"><use href="#lotus-icon"/></svg>Музей Индии</a>
     <nav class="menu" aria-label="Разделы"><a href="#missiya">Миссия</a><a href="#zaly">Залы</a><a href="#formaty">Форматы</a><a href="#podderzhka">Как поддержать</a><a href="#kontakty">Контакты</a></nav>
   </div>
   <div class="hero-text">
@@ -172,15 +197,15 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
 <section id="missiya">
   <div class="wrap mission">
     <div>
-      <svg class="lotus" viewBox="0 0 44 22" aria-hidden="true"><path d="M22 2c3 4 4 8 0 18C18 10 19 6 22 2Zm0 18C16 13 9 11 3 12c4 5 11 8 19 8Zm0 0c6-7 13-9 19-8-4 5-11 8-19 8ZM22 20c-3-6-8-10-14-12 2 6 7 10 14 12Zm0 0c3-6 8-10 14-12-2 6-7 10-14 12Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      <svg class="lotus" viewBox="0 0 64 40" aria-hidden="true"><use href="#lotus-icon"/></svg>
       <h2>Миссия музея</h2>
       <p class="sub" style="margin-bottom:24px">Знакомить людей с культурой, историей, философией и духовными традициями Индии. Проект способен стать одним из культурных центров столицы, укрепить международные связи и сделать жизнь многих людей ярче и счастливее.</p>
       <blockquote>«Музей, в котором Индию не только рассматривают за стеклом, а проживают».</blockquote>
     </div>
     <ul class="pillars">
       <li><i>1</i><div><b>Постоянная экспозиция</b><span>Скульптура, древние рукописи, музыка, танец и ремёсла — все виды традиционной культуры Индии.</span></div></li>
-      <li><i>2</i><div><b>Классические индийские танцы и театральные спектакли</b></div></li>
-      <li><i>3</i><div><b>Лекторий и живые программы</b><span>Знакомство с традиционными индийскими писаниями, культурные вечера, мантра-медитации, киртаны и камерные спектакли.</span></div></li>
+      <li><i>2</i><div><b>Классические индийские танцы и театральные спектакли</b><span>Танцевальные выступления и сценические постановки по сюжетам индийского эпоса.</span></div></li>
+      <li><i>3</i><div><b>Лекторий и живые программы</b><span>Знакомство с традиционными индийскими писаниями, культурные вечера, совместные медитации, воспевание мантр и бхаджанов.</span></div></li>
       <li><i>4</i><div><b>Книги и традиции</b><span>Книжная галерея, алтарная комната с поклонением Божествам, наряды и фотозоны.</span></div></li>
       <li><i>5</i><div><b>Гостеприимство</b><span>Вегетарианское кафе с индийскими сладостями и ярмарка индийских товаров.</span></div></li>
     </ul>
@@ -269,8 +294,8 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
 <section id="komanda">
   <div class="wrap leader">
     <picture class="ph photo">
-      <source type="image/webp" srcset="assets/img/rukovoditel-480.webp 480w, assets/img/rukovoditel.webp 800w" sizes="(max-width:760px) 260px, 300px">
-      <img src="assets/img/rukovoditel.jpg" srcset="assets/img/rukovoditel-480.jpg 480w, assets/img/rukovoditel.jpg 800w" sizes="(max-width:760px) 260px, 300px" alt="Вячеслав Рузов, руководитель проекта" loading="lazy">
+      <source type="image/webp" srcset="assets/img/rukovoditel-480.webp 480w, assets/img/rukovoditel.webp 752w" sizes="(max-width:760px) 260px, 380px">
+      <img src="assets/img/rukovoditel.jpg" srcset="assets/img/rukovoditel-480.jpg 480w, assets/img/rukovoditel.jpg 752w" sizes="(max-width:760px) 260px, 380px" alt="Вячеслав Рузов, руководитель проекта" loading="lazy">
     </picture>
     <div>
       <h2>Команда проекта</h2>
