@@ -32,6 +32,7 @@ a{color:inherit}
 /* левый край текста = начало слова «Музей» в логотипе: отступ шапки + значок лотоса 32px + промежуток 10px */
 .hero-text{position:absolute;z-index:2;left:calc(max(20px,env(safe-area-inset-left,0px)) + 42px);bottom:clamp(30px,8vh,80px);max-width:min(520px,44%)}
 .eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-l);font-weight:600}
+.eyebrow .nw{white-space:nowrap}
 .hero h1{font:600 clamp(40px,5.6vw,72px)/1 var(--f-d);margin:10px 0 14px;text-wrap:balance}
 .hero p{margin:0 0 24px;font-size:17px;color:#e9dfce;text-shadow:0 1px 12px rgba(0,0,0,.5)}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
@@ -149,8 +150,19 @@ section.alt .fmt{background:var(--paper)}
 .cbox b{font:600 22px var(--f-d)}
 footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
 @media (max-width:980px){.leader{grid-template-columns:1fr;gap:28px}.leader .ph.photo{aspect-ratio:4/5;max-width:300px}.ways{grid-template-columns:1fr;gap:18px}.formats{grid-template-columns:1fr}.mission{grid-template-columns:1fr;gap:28px}}
-@media (max-width:760px){.menu{display:none}.hero-text{max-width:none;right:max(20px,env(safe-area-inset-right,0px))}.hero-media,.hero-video{object-position:66% 50%}
+@media (max-width:760px){.menu{display:none}
+  /* телефон: видео — кадр сверху высотой --mh (вывеска и вход целиком), над ним лёгкое затемнение под логотип и подпись;
+     к низу кадр плавно уходит в сплошной фон, на нём заголовок, текст и кнопки */
+  .hero{--mh:clamp(320px,110vw,58svh);height:auto;min-height:0;max-height:none}
+  .hero-media,.hero-video{height:var(--mh);bottom:auto;object-position:70% 50%}
+  .hero::after{bottom:auto;height:var(--mh);background:linear-gradient(180deg,rgba(12,10,8,.72) 0,rgba(12,10,8,.5) 52px,rgba(12,10,8,0) 108px),linear-gradient(180deg,rgba(20,18,15,0) 52%,rgba(20,18,15,.12) 62%,rgba(20,18,15,.4) 74%,rgba(20,18,15,.72) 85%,rgba(20,18,15,.93) 94%,#14120f 100%)}
+  .hero-text{position:relative;left:auto;right:auto;bottom:auto;max-width:none;padding:calc(var(--mh) - 18px) max(20px,env(safe-area-inset-right,0px)) 40px max(20px,env(safe-area-inset-left,0px))}
+  .hero .eyebrow{position:absolute;top:54px;left:max(20px,env(safe-area-inset-left,0px));right:max(20px,env(safe-area-inset-right,0px));font-size:11px;line-height:1.5;letter-spacing:.12em;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+  .hero h1{margin-top:0}
+  .hero p{font-size:15px;line-height:1.45;margin-bottom:22px;text-shadow:none}
+  .hero .btn{padding-inline:22px}
   .hall,.hall.w{grid-column:span 12;min-height:220px}.leader{grid-template-columns:1fr}.ph{max-width:260px}.leader .ph.photo{aspect-ratio:4/5}section{padding-block:60px}}
+@media (max-width:370px){.hero .eyebrow{font-size:10.5px;letter-spacing:.1em}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hall img{transition:none}}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -187,7 +199,7 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
     <nav class="menu" aria-label="Разделы"><a href="#missiya">Миссия</a><a href="#zaly">Залы</a><a href="#formaty">Форматы</a><a href="#podderzhka">Как поддержать</a><a href="#kontakty">Контакты</a></nav>
   </div>
   <div class="hero-text">
-    <div class="eyebrow">Москва · культурно-просветительский центр</div>
+    <div class="eyebrow">Москва · <span class="nw">культурно-просветительский центр</span></div>
     <h1>Музей Индии в Москве</h1>
     <p>Место, где Индию можно увидеть, услышать и почувствовать: экспозиции, лекции, музыка и танец, книги, духовные традиции и гостеприимство.</p>
     <div class="btns"><a class="btn gold" href="#podderzhka">Стать меценатом</a><a class="btn line" href="#missiya">О проекте</a></div>
