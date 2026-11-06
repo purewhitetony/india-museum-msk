@@ -67,9 +67,26 @@ h2{font:600 clamp(34px,4.6vw,54px)/1.05 var(--f-d);margin:0 0 14px;text-wrap:bal
 .hall span{font-size:14px;color:#e2d7c4}
 /* форматы */
 /* миниатюры форматов вырезаны на прозрачном фоне и лежат прямо на карточке */
-.fmt>img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center bottom;display:block;margin:-6px 0 4px;filter:drop-shadow(0 14px 16px rgba(0,0,0,.28))}
+.fmt-model{position:relative;margin:-6px 0 4px}
+.fmt-model img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center bottom;display:block;filter:drop-shadow(0 14px 16px rgba(0,0,0,.28))}
 .formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.fmt>img,.hall{cursor:pointer}
+.fmt-model,.hall{cursor:pointer}
+/* подсказка на миниатюре: модель открывается крупно при наведении — только там, где есть мышь */
+.fmt-hint{display:none}
+@media (hover:hover) and (pointer:fine){
+  .fmt-model{padding-top:42px}
+  .fmt-model img{transition:transform .35s ease,filter .35s ease}
+  .fmt-model:hover img{transform:translateY(-5px) scale(1.03);filter:drop-shadow(0 22px 22px rgba(0,0,0,.34))}
+  .fmt-hint{position:absolute;top:0;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:7px;padding:6px 12px 6px 9px;border:1px solid var(--brass);border-radius:6px;background:var(--paper);color:var(--brass);font-size:13px;font-weight:600;white-space:nowrap;pointer-events:none;transition:background .2s,color .2s}
+  .fmt-hint svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+  .fmt-model:hover .fmt-hint{background:var(--brass);color:var(--paper)}
+  .fmt-hint .spin{display:none;width:13px;height:13px;margin:1px 2px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:fmt-spin .8s linear infinite}
+  .fmt-hint .wait,.fmt-model.wait .fmt-hint .go,.fmt-model.wait .fmt-hint svg{display:none}
+  .fmt-model.wait .fmt-hint .wait,.fmt-model.wait .fmt-hint .spin{display:inline-block}
+  .fmt-hint.hello{animation:fmt-hello 1.4s ease-out 2}
+}
+@keyframes fmt-spin{to{transform:rotate(360deg)}}
+@keyframes fmt-hello{0%{box-shadow:0 0 0 0 rgba(156,122,44,.5)}100%{box-shadow:0 0 0 12px rgba(156,122,44,0)}}
 .hall::before{content:"Войти";position:absolute;z-index:2;top:12px;right:12px;padding:5px 11px;border-radius:6px;background:rgba(20,18,15,.75);color:#f6efe2;font-size:13px;opacity:0;transition:opacity .2s}
 .hall:hover::before,.hall:focus-visible::before{opacity:1}
 .btn.ghost{background:transparent;border-color:var(--brass);color:var(--brass);justify-content:center;transition:background .2s,color .2s}
@@ -163,7 +180,7 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
   .hero .btn{padding-inline:22px}
   .hall,.hall.w{grid-column:span 12;min-height:220px}.leader{grid-template-columns:1fr}.ph{max-width:260px}.leader .ph.photo{aspect-ratio:4/5}section{padding-block:60px}}
 @media (max-width:370px){.hero .eyebrow{font-size:10.5px;letter-spacing:.1em}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hall img{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hall img,.fmt-model img{transition:none}.fmt-model:hover img{transform:none}.fmt-hint.hello{animation:none}}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <linearGradient id="lt-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4ae5f"/><stop offset="1" stop-color="#80611f"/></linearGradient>
@@ -253,7 +270,10 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
     <p class="sub">Концепция гибкая: музей можно воплотить в разном масштабе — под помещение, которое мы найдём вместе с меценатами. Вот несколько возможных форматов, и каждый из них — законченный музей со своей сильной стороной.</p>
     <div class="formats">
       <article class="fmt">
-        <img src="assets/img/formaty/kamerny.png" alt="Камерный музей: один зал" loading="lazy">
+        <div class="fmt-model" data-format="kamerny">
+          <img src="assets/img/formaty/kamerny.webp" alt="Камерный музей: один зал" loading="lazy">
+          <span class="fmt-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg><i class="spin"></i><span class="go">Наведите, чтобы рассмотреть</span><span class="wait">Загружается…</span></span>
+        </div>
         <div class="tag">Формат I</div>
         <h3>Камерный музей</h3>
         <p class="lead">Музей-шкатулка: один драгоценный зал, где каждый экспонат на виду.</p>
@@ -262,7 +282,10 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
         <button class="btn ghost" type="button" data-walk="kamerny">Прогуляться по музею</button>
       </article>
       <article class="fmt">
-        <img src="assets/img/formaty/centr.png" alt="Музей и культурный центр: несколько залов" loading="lazy">
+        <div class="fmt-model" data-format="centr">
+          <img src="assets/img/formaty/centr.webp" alt="Музей и культурный центр: несколько залов" loading="lazy">
+          <span class="fmt-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg><i class="spin"></i><span class="go">Наведите, чтобы рассмотреть</span><span class="wait">Загружается…</span></span>
+        </div>
         <div class="tag">Формат II</div>
         <h3>Музей и культурный центр</h3>
         <p class="lead">Полноценный музей с постоянной живой программой.</p>
@@ -271,7 +294,10 @@ footer{background:#14120f;color:#8f8474;font-size:13.5px;padding-block:26px}
         <button class="btn ghost" type="button" data-walk="centr">Прогуляться по музею</button>
       </article>
       <article class="fmt">
-        <img src="assets/img/formaty/flagman.png" alt="Флагманский центр на двух уровнях" loading="lazy">
+        <div class="fmt-model" data-format="flagman">
+          <img src="assets/img/formaty/flagman.webp" alt="Флагманский центр на двух уровнях" loading="lazy">
+          <span class="fmt-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg><i class="spin"></i><span class="go">Наведите, чтобы рассмотреть</span><span class="wait">Загружается…</span></span>
+        </div>
         <div class="tag">Формат III</div>
         <h3>Флагманский центр</h3>
         <p class="lead">Главная площадка индийской культуры в Москве.</p>
@@ -426,7 +452,7 @@ document.querySelectorAll(".hall").forEach(h=>{
   h.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
 });
 document.querySelectorAll("[data-walk]").forEach(b=>b.addEventListener("click",()=>openWalk(b.dataset.walk)));
-document.querySelectorAll(".fmt>img").forEach(t=>t.addEventListener("click",()=>openWalk(t.getAttribute("src").match(/(\w+)\.png/)[1])));
+document.querySelectorAll(".fmt-model").forEach(t=>t.addEventListener("click",()=>openWalk(t.dataset.format)));
 /* форматы: при наведении мышью модель крупно поверх страницы. Окно держится, пока курсор на миниатюре или в контуре
    музея (SVG из assets/formaty-zones.js); внутри контура у каждой комнаты невидимая область: наведение показывает её подпись */
 if(matchMedia("(hover:hover) and (pointer:fine)").matches&&window.FORMAT_ZONES){
@@ -454,22 +480,39 @@ if(matchMedia("(hover:hover) and (pointer:fine)").matches&&window.FORMAT_ZONES){
     hold.addEventListener("click",()=>{const stop=lit&&WALK.zones[name][lit.name];close();openWalk(name,stop)});
     hold.addEventListener("mouseleave",e=>{if(e.relatedTarget!==cur)close()});
   }
-  document.querySelectorAll(".fmt>img").forEach(t=>{
-    const name=t.getAttribute("src").match(/(\w+)\.png/)[1],src=`assets/img/formaty/${name}-big.webp`;
-    let pre=null;
+  /* крупные модели (~0,8 МБ на три) грузятся заранее: после загрузки страницы или когда раздел уже близко,
+     чтобы при наведении окно открывалось сразу; если ещё не догрузились — на подсказке «Загружается…» */
+  const models=[...document.querySelectorAll(".fmt-model")],bigs={};
+  const fetchBig=name=>bigs[name]||(bigs[name]=(()=>{const im=new Image(),got=new Promise(r=>{im.onload=im.onerror=r});
+    im.src=`assets/img/formaty/${name}-big.webp`;
+    // decode() в фоновой вкладке может ждать до её открытия — не дольше 300 мс после загрузки
+    return got.then(()=>Promise.race([im.decode().catch(()=>{}),new Promise(r=>setTimeout(r,300))])).then(()=>im)})());
+  const preload=()=>models.forEach(t=>fetchBig(t.dataset.format));
+  addEventListener("load",()=>setTimeout(preload,1200),{once:true});
+  const near=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){near.disconnect();preload()}},{rootMargin:"0px 0px 1500px 0px"});
+  near.observe(document.getElementById("formaty"));
+  // когда раздел впервые на экране — подсказки дважды мягко пульсируют, чтобы их заметили
+  const seen=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){seen.disconnect();
+    models.forEach(t=>t.querySelector(".fmt-hint").classList.add("hello"))}},{threshold:.5});
+  seen.observe(document.querySelector(".formats"));
+  models.forEach(t=>{
+    const name=t.dataset.format,src=`assets/img/formaty/${name}-big.webp`;
     t.addEventListener("click",close);
     t.addEventListener("mouseenter",async()=>{
       clearTimeout(timer);
       if(cur===t)return;
-      cur=t;pre=pre||Object.assign(new Image(),{src});
-      await Promise.all([pre.decode().catch(()=>{}),new Promise(r=>setTimeout(r,120))]);
-      if(cur!==t)return;
+      cur=t;
+      const ready=fetchBig(name);let done=false;ready.then(()=>{done=true;t.classList.remove("wait")});
+      setTimeout(()=>{if(!done&&cur===t)t.classList.add("wait")},120);
+      const [pre]=await Promise.all([ready,new Promise(r=>setTimeout(r,120))]);
+      if(cur!==t||!pre.naturalWidth)return;
       const k=Math.min(1,innerWidth*.92/pre.naturalWidth,innerHeight*.9/pre.naturalHeight),w=pre.naturalWidth*k,r=t.getBoundingClientRect();
       light(null);draw(window.FORMAT_ZONES[name],name);big.src=src;box.style.width=w+"px";lens.classList.add("on");
       if(!calm)box.animate([{transform:`translate(${r.left+r.width/2-innerWidth/2}px,${r.top+r.height/2-innerHeight/2}px) scale(${r.width/w})`},{transform:"none"}],{duration:240,easing:"ease-out"});
     });
     // контур может быть в стороне от миниатюры: только курсору, идущему к нему, даём время дойти, иначе закрываем сразу
     t.addEventListener("mouseleave",e=>{
+      t.classList.remove("wait");
       if(!lens.classList.contains("on")){cur=null;return}
       if(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest(".hold"))return;
       const r=t.getBoundingClientRect(),b=box.getBoundingClientRect();
